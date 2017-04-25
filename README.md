@@ -54,24 +54,27 @@ class User
 end
 ```
 
-Attributes to be encrypted are declared using the `attr_cipher` class method in your model:
+Add the attribute as a column to your ActiveRecord migration with `_cipher` appended to the attribute name:
 
 ```ruby
 ActiveRecord::Schema.define do
   create_table :users do |t|
-    t.text :security_question
-    t.text :security_answer_cipher
+    t.text :api_key_cipher
   end
-end
-
-class User < ActiveRecord::Base
-  attr_cipher :security_answer
 end
 ```
 
-**AttrCipher** automatically creates the `#security_answer` getter and `#security_answer=` setter. The getter authomatically decrypts the return value. The setter encrypts the value provided and stores it in the `security_answer_cipher` column.
-CustomCipher
-If you don't want to use the AES-256-CBC cipher, you can provide your own cipher module. Define an object that responds to `encrypt(secret, value)` and `decrypt(secret, value)`:
+Attributes to be encrypted are declared using the `attr_cipher` class method in your model:
+
+```ruby
+class User < ActiveRecord::Base
+  attr_cipher :api_key
+end
+```
+
+In the above example, **AttrCipher** automatically creates the `#api_key` getter and `#api_key=` setter. The getter automatically decrypts the return value. The setter encrypts the value provided and stores it in the `api_key_cipher` column.
+
+If you don't want to use the AES-256-CBC cipher, you can provide your own cipher object. Define an object that responds to `encrypt(secret, value)` and `decrypt(secret, value)` class methods:
 
 ```ruby
 module CustomCipher
@@ -84,7 +87,7 @@ module CustomCipher
 end
 ```
 
-Then pass the custom cipher module to the `cipher` option of the `attr_cipher` class method:
+Then pass the custom cipher object to the `cipher` option of the `attr_cipher` class method:
 
 ```ruby
 class User < ActiveRecord::Base
@@ -112,7 +115,7 @@ bundle exec rake
 
 ## Credit
 
-I would like to thank [Nando Vieira](http://nandovieira.com/) for his [encrypt_attr](https://github.com/fnando/encrypt_attr) gem which provided a lot of the inspiration and framework for **AttrCipher**.
+I would like to thank [Nando Vieira](http://nandovieira.com/) for his [encrypt_attr](https://github.com/fnando/encrypt_attr) gem from which some of the code was derived.
 
 This gem was written and is maintained by [Jurgen Jocubeit](https://github.com/JurgenJocubeit), CEO and President Brightcommerce, Inc.
 
