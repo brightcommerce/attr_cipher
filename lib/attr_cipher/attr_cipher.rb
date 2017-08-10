@@ -4,23 +4,19 @@ require 'active_support/all'
 module AttrCipher
   extend ActiveSupport::Concern
 
+  class Error < ::StandardError
+  end
+
+  class SecretTooShortException < Error
+  end
+
   class << self
     attr_accessor :cipher
     attr_reader :secret
   end
 
   def self.secret=(value)
-    validate_secret(value.to_s)
     @secret = value.to_s
-  end
-
-  def self.validate_secret(value)
-    if value.size < 100
-      offending_line = caller.reject { |entry|
-        entry.include?(__dir__) || entry.include?("forwardable.rb")
-      }.first[/^(.*?:\d+)/, 1]
-      warn "[attr_cipher] secret must have at least 100 characters (called from #{offending_line})"
-    end
   end
 
   self.cipher = Cipher
@@ -28,7 +24,6 @@ module AttrCipher
 
   module ClassMethods
     def attr_cipher(*args, secret: AttrCipher.secret, cipher: AttrCipher.cipher)
-      AttrCipher.validate_secret(secret)
       args.each do |attribute|
         define_cipher_attribute(attribute, secret, cipher)
       end

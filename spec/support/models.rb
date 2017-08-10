@@ -1,4 +1,6 @@
 CUSTOM_SECRET = SecureRandom.hex(50).freeze
+SECRET = SecureRandom.hex(50).freeze
+AttrCipher.secret = SECRET
 
 class ModelWithCipher < ActiveRecord::Base
   attr_cipher :api_key

@@ -18,7 +18,6 @@ load File.dirname(__FILE__) + '/support/schema.rb'
 
 require File.dirname(__FILE__) + '/../lib/attr_cipher.rb'
 
-require 'stringio'
 require 'support/custom_cipher'
 require 'support/models'
 

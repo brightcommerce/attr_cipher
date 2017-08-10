@@ -25,6 +25,9 @@ module AttrCipher
     end
 
     def decrypt(value)
+      raise ::AttrCipher::SecretTooShortException.new(
+        "Secret must have at least 100 characters"
+      ) if @secret.size < 100
       cipher(:decrypt, decode(value))
     end
 
@@ -33,6 +36,9 @@ module AttrCipher
     end
 
     def encrypt(value)
+      raise ::AttrCipher::SecretTooShortException.new(
+        "Secret must have at least 100 characters"
+      ) if @secret.size < 100
       encode(cipher(:encrypt, value))
     end
 

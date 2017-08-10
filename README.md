@@ -22,8 +22,8 @@ And run `bundle install`.
 ## Dependencies
 
 Runtime:
-- activerecord (>= 4.2.6, < 5.2.0)
-- activesupport (>= 4.2.6, < 5.2.0)
+- activerecord (>= 4.2.6)
+- activesupport (>= 4.2.6)
 
 Development/Test:
 - rake (~> 10.5)
@@ -115,7 +115,7 @@ bundle exec rake
 
 ## Credit
 
-I would like to thank [Nando Vieira](http://nandovieira.com/) for his [encrypt_attr](https://github.com/fnando/encrypt_attr) gem from which some of the code was derived.
+I would like to thank [Nando Vieira](http://nandovieira.com/) for his [encrypt_attr](https://github.com/fnando/encrypt_attr) gem from which some of the code was derived. The `encrypt_attr` gem is a better fit for non-ActiveRecord use.
 
 This gem was written and is maintained by [Jurgen Jocubeit](https://github.com/JurgenJocubeit), CEO and President Brightcommerce, Inc.
 
