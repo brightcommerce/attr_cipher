@@ -1,5 +1,8 @@
 # Change Log
 
+##v1.3.1
+- Fixed failing spec.
+
 ##v1.3.0
 - Loosened ActiveRecord version to >= 4.2.6 only.
 - Loosened ActiveSupport version to >= 4.2.6 only.
