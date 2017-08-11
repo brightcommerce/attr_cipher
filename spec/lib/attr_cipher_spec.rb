@@ -14,6 +14,8 @@ describe ModelWithCipher do
   end
 
   it 'correctly stores and retrieves the secret' do
+    SECRET = SecureRandom.hex(50).freeze
+    AttrCipher.secret = SECRET
     expect(AttrCipher.secret).to eq(SECRET)
   end
 
