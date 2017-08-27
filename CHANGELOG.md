@@ -1,5 +1,8 @@
 # Change Log
 
+##v1.4.0
+- Added serialize option to attr_cipher class method. Can now seamlessly handle value types other than just strings.
+
 ##v1.3.1
 - Fixed failing spec.
 

@@ -34,7 +34,7 @@ Development/Test:
 
 ## Compatibility
 
-Tested with Ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15] against ActiveRecord 5.0.0 on macOS Sierra 10.12.4 (16E195).
+Tested with Ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15] against ActiveRecord 5.1.3 on macOS Sierra 10.12.6 (16G29).
 
 **AttrCipher** uses OpenSSL to perform the cipher.
 
@@ -95,9 +95,19 @@ class User < ActiveRecord::Base
 end
 ```
 
+Sometimes we need to store values that are aren't strings. In order to encrypt other value types  you can pass the `serialize` option with a value of `true` to the `attr_cipher` class method:
+
+```ruby
+class User < ActiveRecord::Base
+  attr_cipher :api_key, serialize: true
+end
+```
+
+Using the serialize option will cause the value to be serialized and deserialized using YAML during the encrypting and decrypting process. No changes are necessary to the column type in the table migration, it should remain as `text`.
+
 ## Tests
 
-Tests are written using Rspec, FactoryGirl and Sqlite3. There are 13 examples with 100% code coverage.
+Tests are written using Rspec, FactoryGirl and Sqlite3. There are 15 examples with 100% code coverage.
 
 To run the tests, execute the default rake task:
 

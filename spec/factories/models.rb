@@ -15,4 +15,8 @@ FactoryGirl.define do
   factory :model_with_custom_secret_option do
     api_key 'APIKEY4'
   end
+
+  factory :model_with_serialize_option do
+    knowledge KNOWLEDGE
+  end
 end

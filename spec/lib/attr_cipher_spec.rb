@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yaml'
 
 describe ModelWithCipher do
   it 'responds to :api_key' do
@@ -14,9 +15,9 @@ describe ModelWithCipher do
   end
 
   it 'correctly stores and retrieves the secret' do
-    SECRET = SecureRandom.hex(50).freeze
-    AttrCipher.secret = SECRET
-    expect(AttrCipher.secret).to eq(SECRET)
+    SOME_SECRET = SecureRandom.hex(50).freeze
+    AttrCipher.secret = SOME_SECRET
+    expect(AttrCipher.secret).to eq(SOME_SECRET)
   end
 
   it 'encrypts and decrypts the api_key attribute' do
@@ -61,5 +62,13 @@ describe ModelWithCustomSecretOption do
     encrypted_api_key = AttrCipher::Cipher.encrypt(CUSTOM_SECRET, "APIKEY4")
     model = FactoryGirl.create(:model_with_custom_secret_option)
     expect(model.api_key_cipher).to eq(encrypted_api_key)
+  end
+end
+
+describe ModelWithSerializeOption do
+  it 'encrypts the knowledge attribute successfully' do
+    knowledge = AttrCipher::Cipher.encrypt(SECRET, YAML::dump(KNOWLEDGE))
+    model = FactoryGirl.create(:model_with_serialize_option)
+    expect(model.knowledge_cipher).to eq(knowledge)
   end
 end
