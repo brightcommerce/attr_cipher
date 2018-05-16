@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.email                 = ['support@brightcommerce.com']
   spec.homepage              = 'https://github.com/brightcommerce/attr_cipher'
   spec.license               = 'MIT'
-  spec.metadata              = {'copyright' => 'Copyright 2017 Brightcommerce, Inc.'}
+  spec.metadata              = {'copyright' => 'Copyright 2017-2018 Brightcommerce, Inc.'}
 
   spec.require_paths         = ['lib']
   spec.files                 = Dir.glob('{lib, spec}/**/*') + %w(README.md CHANGELOG.md MIT-LICENSE)
@@ -23,6 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rake', '~> 10.5')
   spec.add_development_dependency('rspec', '~> 3.4')
   spec.add_development_dependency('sqlite3', '~> 1.3')
-  spec.add_development_dependency('factory_girl', '~> 4.5')
-  spec.add_development_dependency('simplecov', '~> 0.11.2')
+  spec.add_development_dependency('factory_bot')
+  spec.add_development_dependency('simplecov', '~> 0.16.1')
 end

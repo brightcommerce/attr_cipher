@@ -21,8 +21,8 @@ require File.dirname(__FILE__) + '/../lib/attr_cipher.rb'
 require 'support/custom_cipher'
 require 'support/models'
 
-require 'factory_girl'
-FactoryGirl.find_definitions
+require 'factory_bot'
+FactoryBot.find_definitions
 
 require "rspec/expectations"
 

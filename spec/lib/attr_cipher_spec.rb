@@ -21,7 +21,7 @@ describe ModelWithCipher do
   end
 
   it 'encrypts and decrypts the api_key attribute' do
-    model = FactoryGirl.create(:model_with_cipher)
+    model = FactoryBot.create(:model_with_cipher)
     expect(model.api_key).to eq('APIKEY1')
   end
 end
@@ -46,7 +46,7 @@ end
 
 describe ModelWithCustomCipherOption do
   it 'sets the custom cipher option correctly' do
-    model = FactoryGirl.create(:model_with_custom_cipher_option)
+    model = FactoryBot.create(:model_with_custom_cipher_option)
     expect(model.api_key_cipher).to eq('APIKEY3'.reverse)
     expect(model.api_key).to eq('APIKEY3')
     custom_secret = SecureRandom.hex(50)
@@ -60,7 +60,7 @@ end
 describe ModelWithCustomSecretOption do
   it 'sets the custom secret option correctly' do
     encrypted_api_key = AttrCipher::Cipher.encrypt(CUSTOM_SECRET, "APIKEY4")
-    model = FactoryGirl.create(:model_with_custom_secret_option)
+    model = FactoryBot.create(:model_with_custom_secret_option)
     expect(model.api_key_cipher).to eq(encrypted_api_key)
   end
 end
@@ -68,7 +68,7 @@ end
 describe ModelWithSerializeOption do
   it 'encrypts the knowledge attribute successfully' do
     knowledge = AttrCipher::Cipher.encrypt(SECRET, YAML::dump(KNOWLEDGE))
-    model = FactoryGirl.create(:model_with_serialize_option)
+    model = FactoryBot.create(:model_with_serialize_option)
     expect(model.knowledge_cipher).to eq(knowledge)
   end
 end

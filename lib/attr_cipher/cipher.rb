@@ -6,9 +6,7 @@ module AttrCipher
   class Cipher
     ALGORITHM = "AES-256-CBC".freeze
 
-    attr_reader :secret
-
-    def initialize(secret)
+    def initialize(secret = nil)
       @secret = secret
     end
 
@@ -25,10 +23,11 @@ module AttrCipher
     end
 
     def decrypt(value)
-      raise ::AttrCipher::SecretTooShortException.new(
-        "Secret must have at least 100 characters"
-      ) if @secret.size < 100
-      cipher(:decrypt, decode(value))
+      if @secret.nil? || (@secret.respond_to?(:size) && @secret.size < 100)
+        raise SecretException.new("Secret not set or must have at least 100 characters.")
+      else
+        cipher(:decrypt, decode(value))
+      end
     end
 
     def encode(value)
@@ -36,10 +35,11 @@ module AttrCipher
     end
 
     def encrypt(value)
-      raise ::AttrCipher::SecretTooShortException.new(
-        "Secret must have at least 100 characters"
-      ) if @secret.size < 100
-      encode(cipher(:encrypt, value))
+      if @secret.nil? || (@secret.respond_to?(:size) && @secret.size < 100)
+        raise SecretException.new("Secret not set or must have at least 100 characters.")
+      else
+        encode(cipher(:encrypt, value))
+      end
     end
 
     def self.decrypt(secret, value)

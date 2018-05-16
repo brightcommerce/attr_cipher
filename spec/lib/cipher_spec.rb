@@ -12,18 +12,30 @@ describe AttrCipher::Cipher do
   end
 
   it "warns that global secret is too short on encryption" do
-    expected_message = "[attr_cipher] secret must have at least 100 characters"
     AttrCipher.secret = "too_short"
     expect(lambda do
       AttrCipher::Cipher.encrypt(AttrCipher.secret, "test")
-    end).to raise_error(AttrCipher::SecretTooShortException)
+    end).to raise_error(AttrCipher::SecretException)
   end
 
   it "warns that global secret is too short on decryption" do
-    expected_message = "[attr_cipher] secret must have at least 100 characters"
     AttrCipher.secret = "too_short"
     expect(lambda do
       AttrCipher::Cipher.decrypt(AttrCipher.secret, "SOME_ENCRYPTED_TEXT")
-    end).to raise_error(AttrCipher::SecretTooShortException)
+    end).to raise_error(AttrCipher::SecretException)
+  end
+
+  it "warns that global secret is not set on encryption" do
+    AttrCipher.secret = nil
+    expect(lambda do
+      AttrCipher::Cipher.encrypt(AttrCipher.secret, "test")
+    end).to raise_error(AttrCipher::SecretException)
+  end
+
+  it "warns that global secret is not set on decryption" do
+    AttrCipher.secret = nil
+    expect(lambda do
+      AttrCipher::Cipher.decrypt(AttrCipher.secret, "SOME_ENCRYPTED_TEXT")
+    end).to raise_error(AttrCipher::SecretException)
   end
 end

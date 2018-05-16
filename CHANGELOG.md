@@ -1,7 +1,13 @@
 # Change Log
 
+##v1.5.0
+- Created `AttrCipher::SecretException` class.
+- Updated FactoryGirl to FactoryBot (dev dependency).
+- Updated Codecov to ~> 0.16.1 (dev dependency).
+- Added Ruby 2.4.4 to Travis CI config.
+
 ##v1.4.0
-- Added serialize option to attr_cipher class method. Can now seamlessly handle value types other than just strings.
+- Added serialize option to `attr_cipher` class method. Can now seamlessly handle value types other than just strings.
 
 ##v1.3.1
 - Fixed failing spec.

@@ -107,7 +107,7 @@ Using the serialize option will cause the value to be serialized and deserialize
 
 ## Tests
 
-Tests are written using Rspec, FactoryGirl and Sqlite3. There are 15 examples with 100% code coverage.
+Tests are written using Rspec, FactoryBot and Sqlite3. There are 17 examples with 100% code coverage.
 
 To run the tests, execute the default rake task:
 
@@ -135,4 +135,4 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 ## Copyright
 
-Copyright 2017 Brightcommerce, Inc.
+Copyright 2017-2018 Brightcommerce, Inc.

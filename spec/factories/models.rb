@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :model_with_cipher do
     api_key 'APIKEY1'
   end

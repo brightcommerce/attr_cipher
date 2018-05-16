@@ -5,12 +5,6 @@ require 'yaml'
 module AttrCipher
   extend ActiveSupport::Concern
 
-  class Error < ::StandardError
-  end
-
-  class SecretTooShortException < Error
-  end
-
   class << self
     attr_accessor :cipher
     attr_reader :secret
