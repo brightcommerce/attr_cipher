@@ -67,8 +67,8 @@ end
 
 describe ModelWithSerializeOption do
   it 'encrypts the knowledge attribute successfully' do
-    knowledge = AttrCipher::Cipher.encrypt(SECRET, YAML::dump(KNOWLEDGE))
+    encrypted_knowledge = AttrCipher::Cipher.encrypt(SECRET, KNOWLEDGE, true)
     model = FactoryBot.create(:model_with_serialize_option)
-    expect(model.knowledge_cipher).to eq(knowledge)
+    expect(model.knowledge_cipher).to eq(encrypted_knowledge)
   end
 end

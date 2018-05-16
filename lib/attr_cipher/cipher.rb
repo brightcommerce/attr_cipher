@@ -6,8 +6,9 @@ module AttrCipher
   class Cipher
     ALGORITHM = "AES-256-CBC".freeze
 
-    def initialize(secret = nil)
+    def initialize(secret = nil, serialize = false)
       @secret = secret
+      @serialize = serialize
     end
 
     def cipher(mode, value)
@@ -18,36 +19,32 @@ module AttrCipher
       cipher.update(value) + cipher.final
     end
 
-    def decode(value)
-      Base64.decode64(value)
-    end
-
     def decrypt(value)
       if @secret.nil? || (@secret.respond_to?(:size) && @secret.size < 100)
         raise SecretException.new("Secret not set or must have at least 100 characters.")
       else
-        cipher(:decrypt, decode(value))
+        decoded = Base64.decode64(value)
+        decrypted = cipher(:decrypt, decoded)
+        @serialize ? Marshal.load(decrypted) : decrypted
       end
-    end
-
-    def encode(value)
-      Base64.encode64(value).chomp
     end
 
     def encrypt(value)
       if @secret.nil? || (@secret.respond_to?(:size) && @secret.size < 100)
         raise SecretException.new("Secret not set or must have at least 100 characters.")
       else
-        encode(cipher(:encrypt, value))
+        data = @serialize ? Marshal.dump(value) : value.to_s
+        encrypted = cipher(:encrypt, data)
+        Base64.encode64(encrypted).chomp
       end
     end
 
-    def self.decrypt(secret, value)
-      new(secret).decrypt(value)
+    def self.decrypt(secret, value, serialize = false)
+      new(secret, serialize).decrypt(value)
     end
 
-    def self.encrypt(secret, value)
-      new(secret).encrypt(value)
+    def self.encrypt(secret, value, serialize = false)
+      new(secret, serialize).encrypt(value)
     end
   end
 end

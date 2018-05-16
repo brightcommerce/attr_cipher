@@ -5,6 +5,8 @@
 - Updated FactoryGirl to FactoryBot (dev dependency).
 - Updated Codecov to ~> 0.16.1 (dev dependency).
 - Added Ruby 2.4.4 to Travis CI config.
+- Switched serialize option to use Marshal instead of YAML.
+- Refactored cipher.
 
 ##v1.4.0
 - Added serialize option to `attr_cipher` class method. Can now seamlessly handle value types other than just strings.
