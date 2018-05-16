@@ -29,18 +29,18 @@ Development/Test:
 - rake (~> 10.5)
 - rspec (~> 3.4)
 - sqlite3 (~> 1.3)
-- simplecov (~> 0.11.2)
-- factory_girl (~> 4.5)
+- simplecov (~> 0.16.1)
+- factory_bot (~> 4.8.2)
 
 ## Compatibility
 
-Tested with Ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15] against ActiveRecord 5.1.3 on macOS Sierra 10.12.6 (16G29).
+Tested with Ruby 2.4.2p198 (2017-09-14 revision 59899) [x86_64-darwin16] against ActiveRecord 5.1.4 on macOS Sierra 10.13.4 (17E202).
 
 **AttrCipher** uses OpenSSL to perform the cipher.
 
 ## Usage
 
-**AttrCipher** uses a global secret by default and it must be at least 100 characters or more. You can set the secret by setting `AttrCipher.secret`; (e.g. `$ openssl rand -hex 50`).
+**AttrCipher** uses a global secret by default and it must be at least 100 characters or more. You can set the secret by setting `AttrCipher.secret` (e.g. `$ openssl rand -hex 50`).
 
 ```ruby
 AttrCipher.secret = ENV['SECRET_KEY']
