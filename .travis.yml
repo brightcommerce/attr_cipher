@@ -5,6 +5,7 @@ rvm:
   - 2.4.4
   - 2.5.3
 before_install:
+  - gem install bundler -v '< 2'
   - pip install --user codecov
 after_success:
   - codecov --file coverage/lcov.info --disable search
