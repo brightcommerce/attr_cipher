@@ -41,5 +41,3 @@ module AttrCipher
     end
   end
 end
-
-ActiveRecord::Base.send :include, AttrCipher

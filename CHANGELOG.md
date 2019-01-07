@@ -1,5 +1,13 @@
 # Change Log
 
+##v2.0.0
+- Removed automatic inclusion in ActiveRecord::Base class, now optional.
+- Added Ruby 2.5.3 to Travis CI config.
+- Tested against ActiveRecord 5.2.2.
+- Updated Rspec to 3.7.0 (dev dependency).
+- Updated Sqlite to ~> 1.3.13 (dev dependency).
+- Updated README.
+
 ##v1.5.0
 - Created `AttrCipher::SecretException` class.
 - Updated FactoryGirl to FactoryBot (dev dependency).

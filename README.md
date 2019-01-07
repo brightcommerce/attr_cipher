@@ -9,12 +9,16 @@
 
 Using the same secret for both encryption of plaintext and decryption of ciphertext, **AttrCipher** uses a method that is known as a symmetric-key algorithm, specifically the Advanced Encryption Standard Cipher-Block Chaining algorithm with a 256bit key (AES-256-CBC). However, you can provide your own cipher algorithm to **AttrCipher**, if you prefer. As a side note, 256bit AES is what the United States government uses to encrypt information at the Top Secret level.
 
+***Version 2.0.0+ Breaking Changes***
+
+_Please note:_ AttrCipher is **no longer automatically included** in models anymore. You will need to either `require attr_cipher/active_record` in an initializer, or `include AttrCipher` in each model using the `attr_cipher` macro. This is to prevent pollution of ActiveRecord::Base. See [usage](#usage) section below for details.
+
 ## Installation
 
 To install add the following line to your `Gemfile`:
 
 ``` ruby
-gem 'attr_cipher'
+gem 'attr_cipher', '~> 2.0'
 ```
 
 And run `bundle install`.
@@ -26,15 +30,15 @@ Runtime:
 - activesupport (>= 4.2.6)
 
 Development/Test:
-- rake (~> 10.5)
-- rspec (~> 3.4)
-- sqlite3 (~> 1.3)
+- rake (~> 10.5.0)
+- rspec (~> 3.7.0)
+- sqlite3 (~> 1.3.13)
 - simplecov (~> 0.16.1)
 - factory_bot (~> 4.8.2)
 
 ## Compatibility
 
-Tested with Ruby 2.4.2p198 (2017-09-14 revision 59899) [x86_64-darwin16] against ActiveRecord 5.1.4 on macOS Sierra 10.13.4 (17E202).
+Tested with Ruby 2.5.3p105 (2018-10-18 revision 65156) [x86_64-darwin18] against ActiveRecord 5.2.2 on macOS Mojave 10.14 (18A391).
 
 **AttrCipher** uses OpenSSL to perform the cipher.
 
@@ -43,14 +47,17 @@ Tested with Ruby 2.4.2p198 (2017-09-14 revision 59899) [x86_64-darwin16] against
 **AttrCipher** uses a global secret by default and it must be at least 100 characters or more. You can set the secret by setting `AttrCipher.secret` (e.g. `$ openssl rand -hex 50`).
 
 ```ruby
-AttrCipher.secret = ENV['SECRET_KEY']
+# config/initializers/attr_cipher.rb
+AttrCipher.secret = Rails.application.secrets.secret_key_base
 ```
 
 You can also set the secret on a per attribute basis.
 
 ```ruby
 class User
-  attr_cipher :api_key, secret: ENV['USER_API_KEY_SECRET']
+  include AttrArray
+
+  attr_cipher :api_key, secret: Rails.application.secrets.secret_key_base
 end
 ```
 
@@ -63,6 +70,15 @@ ActiveRecord::Schema.define do
   end
 end
 ```
+
+To include AttrCipher in all models, add the following to an initializer:
+
+```ruby
+# config/initializers/attr_cipher.rb
+require 'attr_cipher/active_record'
+```
+
+You then don't need to `include AttrCipher` in any model.
 
 Attributes to be encrypted are declared using the `attr_cipher` class method in your model:
 
@@ -135,4 +151,4 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 ## Copyright
 
-Copyright 2017-2018 Brightcommerce, Inc.
+Copyright 2017-2019 Brightcommerce, Inc. All rights reserved.

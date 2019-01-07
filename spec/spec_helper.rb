@@ -17,6 +17,7 @@ puts "Using ActiveRecord #{ActiveRecord::VERSION::STRING}"
 load File.dirname(__FILE__) + '/support/schema.rb'
 
 require File.dirname(__FILE__) + '/../lib/attr_cipher.rb'
+require File.dirname(__FILE__) + '/../lib/attr_cipher/active_record.rb'
 
 require 'support/custom_cipher'
 require 'support/models'
